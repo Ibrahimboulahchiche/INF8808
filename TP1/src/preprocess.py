@@ -78,7 +78,7 @@ def clean_names(my_df):
     my_df['Player'] = my_df['Player'].str.title()
     return my_df
 
-df = pd.read_csv('src/assets/data/romeo_and_juliet.csv')
+df = pd.read_csv('assets/data/romeo_and_juliet.csv')
 df = clean_names(df)
 df = summarize_lines(df)
 df = replace_others(df)

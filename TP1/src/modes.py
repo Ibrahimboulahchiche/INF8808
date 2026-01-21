@@ -5,3 +5,4 @@
 
 MODES = dict(count='Count', percent='Percent')
 MODE_TO_COLUMN = {MODES['count']: 'LineCount', MODES['percent']: 'LinePercent'}
+MODE_TO_DATA = {MODES['count']: 'PlayerLine', MODES['percent']: 'PlayerPercent'}

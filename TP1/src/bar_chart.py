@@ -7,7 +7,8 @@ import plotly.graph_objects as go
 import plotly.io as pio
 
 from hover_template import get_hover_template
-from modes import MODES, MODE_TO_COLUMN
+from modes import MODE_TO_DATA, MODES, MODE_TO_COLUMN
+from template import THEME
 
 
 def init_figure():
@@ -22,9 +23,28 @@ def init_figure():
     fig = go.Figure()
 
     # TODO : Update the template to include our new theme and set the title
-
+    custom_template = go.layout.Template(
+        layout=go.Layout(
+            colorway=THEME['bar_colors'],
+            plot_bgcolor=THEME['background_color'],
+            paper_bgcolor=THEME['background_color'],
+            font=dict(
+                family=THEME['font_family'],
+                color=THEME['font_color']
+            ),
+            xaxis=dict
+                (title_font=dict(
+                           size=THEME["label_font_size"],)
+            ),
+            yaxis=dict(
+                title_font=dict(
+                           size=THEME["label_font_size"],)
+            )
+        )
+    )
     fig.update_layout(
-        template=pio.templates['simple_white'],
+        title="Lines per act",
+        template=custom_template,
         dragmode=False,
         barmode='relative'
     )
@@ -45,6 +65,18 @@ def draw(fig, data, mode):
     '''
     fig = go.Figure(fig)  # conversion back to Graph Object
     # TODO : Update the figure's data according to the selected mode
+    # fig.add_bar(data,y=MODE_TO_COLUMN[mode])
+    for player in data['Player'].unique():
+        player_data = data[data['Player']==player]
+        fig.add_bar(
+            x=[f"Act {a}" for a in player_data['Act']],
+            y=player_data[MODE_TO_DATA[MODES[mode]]],
+            name=player
+        )
+            
+    update_y_axis(fig,mode)
+    
+
     return fig
 
 
@@ -59,3 +91,7 @@ def update_y_axis(fig, mode):
             The updated figure
     '''
     # TODO : Update the y axis title according to the current mode
+    fig.update_layout(
+        yaxis_title=MODE_TO_COLUMN[MODES[mode]]
+    )
+    return
