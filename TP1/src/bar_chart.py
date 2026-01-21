@@ -74,10 +74,10 @@ def draw(fig, data, mode):
             name=player
         )
             
-    update_y_axis(fig,mode)
+    
     
 
-    return fig
+    return update_y_axis(fig,mode)
 
 
 def update_y_axis(fig, mode):
@@ -94,4 +94,4 @@ def update_y_axis(fig, mode):
     fig.update_layout(
         yaxis_title=MODE_TO_COLUMN[MODES[mode]]
     )
-    return
+    return fig
