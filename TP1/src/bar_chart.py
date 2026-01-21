@@ -65,7 +65,6 @@ def draw(fig, data, mode):
     '''
     fig = go.Figure(fig)  # conversion back to Graph Object
     # TODO : Update the figure's data according to the selected mode
-    # fig.add_bar(data,y=MODE_TO_COLUMN[mode])
     for player in data['Player'].unique():
         player_data = data[data['Player']==player]
         fig.add_bar(
