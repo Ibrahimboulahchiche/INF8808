@@ -4,7 +4,6 @@
 import pandas as pd
 from modes import MODE_TO_COLUMN
 
-
 def summarize_lines(my_df):
     '''
         Sums each player's total of number of lines and  its
@@ -24,6 +23,11 @@ def summarize_lines(my_df):
     '''
     # TODO : Modify the dataframe, removing the line content and replacing
     # it by line count and percent per player per act
+    my_df = my_df.groupby(['Act', 'Player']).size().reset_index(name='PlayerLine')
+    totals = my_df.groupby('Act')['PlayerLine'].sum().reset_index(name='ActTotal')
+    my_df = pd.merge(my_df, totals, on='Act')
+    my_df['PlayerPercent'] = (my_df['PlayerLine'] / my_df['ActTotal']) * 100
+    my_df['PlayerPercent'] = my_df['PlayerPercent'].round(6)
     return my_df
 
 
@@ -52,6 +56,13 @@ def replace_others(my_df):
     '''
     # TODO : Replace players in each act not in the top 5 by a
     # new player 'OTHER' which sums their line count and percentage
+    total_per_players = my_df.groupby('Player')['PlayerLine'].sum()
+    top_5_series = total_per_players.sort_values(ascending=False).head(5)
+    top_5_names= top_5_series.index.tolist()
+    my_df['Player'] = my_df['Player'].apply(lambda x: x if x in top_5_names else 'OTHER')
+    my_df = my_df.groupby(['Act', 'Player']).agg(
+    PlayerLine=('PlayerLine', 'sum'),
+    PlayerPercent=('PlayerPercent', 'sum')).reset_index()
     return my_df
 
 
@@ -64,4 +75,11 @@ def clean_names(my_df):
             The df with formatted names
     '''
     # TODO : Clean the player names
+    my_df['Player'] = my_df['Player'].str.title()
     return my_df
+
+df = pd.read_csv('src/assets/data/romeo_and_juliet.csv')
+df = clean_names(df)
+df = summarize_lines(df)
+df = replace_others(df)
+print(df.head(100))
