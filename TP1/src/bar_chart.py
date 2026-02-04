@@ -8,7 +8,6 @@ import plotly.io as pio
 
 from hover_template import get_hover_template
 from modes import MODE_TO_DATA, MODES, MODE_TO_COLUMN
-from template import THEME
 
 
 def init_figure():
@@ -23,28 +22,9 @@ def init_figure():
     fig = go.Figure()
 
     # TODO : Update the template to include our new theme and set the title
-    custom_template = go.layout.Template(
-        layout=go.Layout(
-            colorway=THEME['bar_colors'],
-            plot_bgcolor=THEME['background_color'],
-            paper_bgcolor=THEME['background_color'],
-            font=dict(
-                family=THEME['font_family'],
-                color=THEME['font_color']
-            ),
-            xaxis=dict
-                (title_font=dict(
-                           size=THEME["label_font_size"],)
-            ),
-            yaxis=dict(
-                title_font=dict(
-                           size=THEME["label_font_size"],)
-            )
-        )
-    )
     fig.update_layout(
         title="Lines per act",
-        template=custom_template,
+        template = pio.templates["simple_white+custom_theme"],
         dragmode=False,
         barmode='relative'
     )
@@ -71,10 +51,7 @@ def draw(fig, data, mode):
             x=[f"Act {a}" for a in player_data['Act']],
             y=player_data[MODE_TO_DATA[MODES[mode]]],
             name=player
-        )
-            
-    
-    
+        ) 
 
     return update_y_axis(fig,mode)
 
