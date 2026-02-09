@@ -55,7 +55,7 @@ def draw(fig, data, mode):
             y=player_data[MODE_TO_DATA[mode]],
             name=player,
             hovertemplate=get_hover_template(player, mode)
-        ) 
+        )
     return update_y_axis(fig,mode)
 
 

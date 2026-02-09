@@ -131,7 +131,5 @@ data = prep_data()
 create_template()
 
 fig = bar_chart.init_figure()
-##TODO Il faut changer 'count'pour la méthode radio_updated, c'est moi qui est rajouté ce todo ibra
-# fig = bar_chart.draw(fig,data,'Count')
 
 app.layout = init_app_layout(fig)
