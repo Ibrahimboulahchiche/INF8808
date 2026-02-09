@@ -26,5 +26,9 @@ def get_hover_template(name, mode):
             The hover template with the elements descibed above
     '''
     # TODO: Generate and return the over template
-
-    return ''
+    title = f"<span style=\"font-family: Grenze Gotisch; font-size:24px; color:Black;\">{name}</span><br>"
+    if mode == MODES['count']:
+        body = "%{y} lines"
+    else:
+        body = "%{y:.2f}% of lines"
+    return title + "<br>" + body + "<extra></extra>"

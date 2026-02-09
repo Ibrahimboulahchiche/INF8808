@@ -121,8 +121,9 @@ def radio_updated(mode, figure):
     '''
     # TODO : Update the figure's data and y axis, as well as the informational
     # text indicating the mode
-    new_fig = figure
-    return new_fig, ''
+    newdata = prep_data()
+    new_fig = bar_chart.draw(figure,newdata,mode)
+    return new_fig, mode
 
 
 data = prep_data()
@@ -131,6 +132,6 @@ create_template()
 
 fig = bar_chart.init_figure()
 ##TODO Il faut changer 'count'pour la méthode radio_updated, c'est moi qui est rajouté ce todo ibra
-fig = bar_chart.draw(fig,data,'count')
+# fig = bar_chart.draw(fig,data,'Count')
 
 app.layout = init_app_layout(fig)

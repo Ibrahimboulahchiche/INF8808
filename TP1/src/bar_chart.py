@@ -43,16 +43,19 @@ def draw(fig, data, mode):
         Returns:
             fig: The figure comprising the drawn bar chart
     '''
-    fig = go.Figure(fig)  # conversion back to Graph Object
+
     # TODO : Update the figure's data according to the selected mode
+    fig = go.Figure(fig)
+    fig.data = []
+
     for player in data['Player'].unique():
         player_data = data[data['Player']==player]
         fig.add_bar(
             x=[f"Act {a}" for a in player_data['Act']],
-            y=player_data[MODE_TO_DATA[MODES[mode]]],
-            name=player
+            y=player_data[MODE_TO_DATA[mode]],
+            name=player,
+            hovertemplate=get_hover_template(player, mode)
         ) 
-
     return update_y_axis(fig,mode)
 
 
@@ -67,7 +70,12 @@ def update_y_axis(fig, mode):
             The updated figure
     '''
     # TODO : Update the y axis title according to the current mode
-    fig.update_layout(
-        yaxis_title=MODE_TO_COLUMN[MODES[mode]]
-    )
+    if mode == 'Count':
+        fig.update_layout(
+            yaxis_title= 'Lines (Count)'
+        )
+    else:
+        fig.update_layout(
+            yaxis_title= 'Lines (%)'
+        )
     return fig
