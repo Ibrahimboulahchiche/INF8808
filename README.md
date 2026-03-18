@@ -40,10 +40,10 @@ http://127.0.0.1:8050/
 
 ---
 
-# TP2 — Diagramme à bandes empilées interactif
+# TP1 — Diagramme à bandes empilées interactif
 
 ## Description
-Le **TP2** consiste à développer une **visualisation interactive** permettant d’explorer le nombre de lignes prononcées par les personnages de *Roméo et Juliette*.
+Le **TP1** consiste à développer une **visualisation interactive** permettant d’explorer le nombre de lignes prononcées par les personnages de *Roméo et Juliette*.
 
 L’application affiche un **diagramme à bandes empilées** par acte et permet de basculer entre deux modes d’affichage :
 - **Count** : nombre brut de lignes prononcées
@@ -92,10 +92,10 @@ Le prétraitement comprend principalement :
 
 ---
 
-# TP3 — Carte de chaleur et graphique linéaire
+# TP2 — Carte de chaleur et graphique linéaire
 
 ## Description
-Le **TP3** consiste à développer une **application interactive** permettant d’explorer les **plantations d’arbres à Montréal** entre **2010 et 2020**.
+Le **TP2** consiste à développer une **application interactive** permettant d’explorer les **plantations d’arbres à Montréal** entre **2010 et 2020**.
 
 L’application combine deux visualisations :
 - une **carte de chaleur** montrant le nombre d’arbres plantés par **quartier** et par **année**
@@ -156,6 +156,6 @@ Le prétraitement comprend notamment :
 
 ## Résumé
 Ces deux travaux pratiques mettent en œuvre des techniques de **prétraitement**, de **visualisation interactive** et de **mise à jour dynamique** avec Dash et Plotly.  
-Le **TP2** met l’accent sur la comparaison par catégories avec un diagramme à bandes empilées, tandis que le **TP3** met l’accent sur l’exploration spatio-temporelle à l’aide d’une heatmap couplée à un graphique linéaire.
+Le **TP1** met l’accent sur la comparaison par catégories avec un diagramme à bandes empilées, tandis que le **TP2** met l’accent sur l’exploration spatio-temporelle à l’aide d’une heatmap couplée à un graphique linéaire.
 
 
