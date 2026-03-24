@@ -73,8 +73,21 @@ def update_animation_menu(fig):
         Returns
             The updated figure
     '''
-    # TODO : Update animation menu
-    return None
+    menu = fig.layout.updatemenus[0]
+    menu.buttons = [menu.buttons[0]]
+    fig.update_layout(
+        updatemenus=[
+            dict(
+                type="buttons",
+                buttons=[
+                    dict(label="Animate",
+                         method="animate",
+                         args=[None, dict(frame=dict(duration=300, redraw=False), fromcurrent=True, mode="immediate")])
+                ]
+            )
+        ]
+    )
+    return fig
 
 
 def update_axes_labels(fig):
@@ -86,8 +99,11 @@ def update_axes_labels(fig):
         Returns:
             The updated figure
     '''
-    # TODO : Update labels
-    return None
+    fig.update_layout(
+        xaxis_title='GDP per capita ($ USD)',
+        yaxis_title='CO2 emissions per capita (metric tonnes)'
+    )
+    return fig
 
 
 def update_template(fig):
@@ -101,7 +117,8 @@ def update_template(fig):
             The updated figure
     '''
     # TODO : Update template
-    return None
+    fig.update_layout(template='simple_white')
+    return fig
 
 
 def update_legend(fig):
@@ -114,4 +131,5 @@ def update_legend(fig):
             The updated figure
     '''
     # TODO : Update legend
-    return None
+    fig.update_layout(legend_title_text='Legend')
+    return fig
