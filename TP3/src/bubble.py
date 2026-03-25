@@ -58,7 +58,12 @@ def update_animation_hover_template(fig):
         Returns:
             The updated figure
     '''
-    fig.update_traces(hovertemplate=hover_template.get_bubble_hover_template())
+    hover = hover_template.get_bubble_hover_template()
+    fig.update_traces(hovertemplate=hover)
+    if hasattr(fig, 'frames') and fig.frames:
+        for frame in fig.frames:
+            for trace in frame.data:
+                trace.hovertemplate = hover
 
     return fig
 
