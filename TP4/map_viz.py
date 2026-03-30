@@ -30,7 +30,16 @@ def add_choro_trace(fig, montreal_data, locations, z_vals, colorscale):
 
     '''
     # TODO : Draw the map base
-    return None
+    fig.add_trace(go.Choroplethmapbox(
+        geojson=montreal_data,
+        locations=locations,
+        featureidkey="properties.NOM",
+        z=z_vals,
+        colorscale=colorscale,
+        marker_opacity=0.2,
+        hovertemplate=hover.map_base_hover_template(),
+    ))
+    return fig
 
 
 def add_scatter_traces(fig, street_df):
@@ -48,4 +57,24 @@ def add_scatter_traces(fig, street_df):
 
     '''
     # TODO : Add the scatter markers to the map base
-    return None
+    intervention_types = sorted(street_df['properties.TYPE_SITE_INTERVENTION'].unique())
+    colors = px.colors.qualitative.Plotly
+
+    for i, it_type in enumerate(intervention_types):
+
+        df_filtered = street_df[street_df['properties.TYPE_SITE_INTERVENTION'] == it_type]    
+        lons, lats = zip(*df_filtered['geometry.coordinates'])
+
+        fig.add_trace(go.Scattermapbox(
+            lon=lons,
+            lat=lats,
+            mode='markers',
+            marker=go.scattermapbox.Marker(
+                size=20,
+                color=colors[i % len(colors)]
+            ),
+            name=it_type,
+            text=df_filtered['properties.TYPE_SITE_INTERVENTION'],
+            hovertemplate=hover.map_marker_hover_template("%{text}")
+        ))
+    return fig
